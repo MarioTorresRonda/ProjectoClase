@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\DAM\WAD\Programas\Workspace-programacionC\OracleWeb\OracleWebProyectoDAM\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2717466086.index
+818122353.index
+2212227825.index
+159899549.index
+2393003248.index
+2330083206.index

@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\DAM\WAD\Programas\Workspace-programacionC\OracleWeb\OracleWebProyectoDAM\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3743066756.index
+\OracleWeb\src
+C:\DAM\WAD\Programas\Workspace-programacionC\OracleWeb\OracleWebProyectoDAM\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3125985358.index
+\OracleWebMetro\src
