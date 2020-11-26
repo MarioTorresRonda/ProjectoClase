@@ -6,8 +6,8 @@ import oracle.jdbc.pool.OracleConnectionPoolDataSource;
 
 public class Conection {
 	  public static Connection conecta() {
-	    	//String url="jdbc:oracle:thin:alumno/alumno@10.0.1.12:1521:oradai";
-	    	String url="jdbc:oracle:thin:alumno/alumno@80.28.158.14:1521:oradai";
+	    	//String url="jdbc:oracle:thin:grupo1/grupo1@10.0.1.12:1521:oradai";
+	    	String url="jdbc:oracle:thin:grupo1/grupo1@80.28.158.14:1521:oradai";
 	 
 	        OracleConnectionPoolDataSource ocpds;
 	        Connection con=null;

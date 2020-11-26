@@ -56,13 +56,13 @@ public class DaoEmilio {
 		return true;
 	}
 
-	public boolean borraEmilio(String dni) {
+	public boolean borraEmilio( String email ) {
 		int borrados = -1;
 		Connection con = new Conection().conecta();
-		String ordenSQL = "delete from emilio where dni=?";
+		String ordenSQL = "delete from emilio where email=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
-			st.setString(1, dni);
+			st.setString(1, email);
 			borrados = st.executeUpdate();
 			st.close();
 			con.close();

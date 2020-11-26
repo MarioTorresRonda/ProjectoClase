@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import daos.DaoAlumno;
+import daos.DaoAlumnoView;
+import daos.DaoCurso;
+import daos.DaoEmilio;
+import model.Alumno;
+import model.AlumnoView;
 import model.Curso;
 import model.Emilio;
-import model.EstacionesLinea;
-import model.Linea;
 
 /**
  * Servlet implementation class Controller
@@ -40,10 +44,15 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession(); // solicitamos/creamos una session/obtenemos objeto session
 		String op = request.getParameter("op"); // traemos el op
 		RequestDispatcher dispatcher; // objeto dispatcher para despues devolver la respuesta
+		
 		if (op.equals("inicio")) {
-			ArrayList<Curso> listaCursos = new DaoCursos().getCursos();
-
-			session.setAttribute("listaCursos", listaCursos);
+			
+			ArrayList<Curso> listaCurso = new DaoCurso().getCursos();
+			session.setAttribute("listaCurso", listaCurso);
+			
+			ArrayList<AlumnoView> listaAlumno = new DaoAlumnoView().getAlumnoViews("", "");
+			session.setAttribute("listaAlumno", listaAlumno);
+			
 			dispatcher = request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
 
@@ -52,8 +61,8 @@ public class Controller extends HttpServlet {
 			String nombreAlumno = request.getParameter("nombreAlumno").toString();
 			String dniAlumno = request.getParameter("dniAlumno").toString();
 			String cursoAlumno = request.getParameter("cursoAlumno").toString();
-
-			if (DaoAlumno.addAlumno(nombreAlumno, dniAlumno, cursoAlumno)) {
+			
+			if ( DaoAlumno.insertAlumno( new Alumno( nombreAlumno, dniAlumno, cursoAlumno ) ) ) {
 				request.setAttribute("listaAlumnos", DaoAlumno.getAlumnos());
 			} else {
 				request.setAttribute("error", "Error al añadir el alumno");
@@ -62,12 +71,12 @@ public class Controller extends HttpServlet {
 			dispatcher.forward(request, response); // devolvemos respuesta
 
 		} else if (op.equals("addEmail")) {
-			DaoEmail DaoEmail = new DaoEmail();
+			DaoEmilio DaoEmail = new DaoEmilio();
 			String dniEmail = request.getParameter("dniEmail").toString();
 			String emailEmail = request.getParameter("emailEmail").toString();
 
-			if (DaoEmail.addEmail(dniEmail, emailEmail)) {
-				request.setAttribute("listaEmails", DaoEmail.getEmails());
+			if (DaoEmail.insertEmilio( new Emilio( dniEmail, emailEmail ) ) ) {
+				request.setAttribute("listaEmails", DaoEmail.getEmilios( dniEmail ));
 			} else {
 				request.setAttribute("error", "Error al añadir el email");
 			}
@@ -75,10 +84,10 @@ public class Controller extends HttpServlet {
 			dispatcher.forward(request, response); // devolvemos respuesta
 		} else if (op.equals("deleteEmail")) {
 			Emilio emilio = new Emilio(request.getParameter("dniEmail").toString(), request.getParameter("emailEmail").toString());
-			DaoEmail DaoEmail = new DaoEmail();
+			DaoEmilio DaoEmail = new DaoEmilio();
 
-			if (DaoEmail.deleteEmail(emilio)) {
-				request.setAttribute("listaEmails", DaoEmail.getEmails());
+			if (DaoEmail.borraEmilio( emilio.getEmail() )) {
+				request.setAttribute("listaEmails", DaoEmail.getEmilios( emilio.getDni() ) );
 			} else {
 				request.setAttribute("error", "Error al borrar el email");
 			}

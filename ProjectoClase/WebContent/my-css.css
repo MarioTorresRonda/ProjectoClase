@@ -1,0 +1,122 @@
+body{
+    margin: 0;
+}
+
+.cartabox{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.carta .card {
+    height: 100%; 
+    
+    animation: load-card 0.3s ease-in;
+
+}
+
+.acordeon .card{
+    border-radius: 0 0 0 0 ;
+    border-width: 1px 0 0 0;
+}
+
+
+.acordeon .card .card-header{
+    background-color: white;
+    border-width: 0;
+}
+
+.card-body .content{
+
+    border: 1px solid rgba(0,0,0,.125);
+    border-width: 0 0 1px 0;
+    
+}
+
+.titulo{
+
+    border-width: 0 0 .3rem 0;
+    border-style: solid;
+    border-color: black;
+
+    animation: load-titulo 0.3s ease-in;
+
+}
+
+.imgAdd{
+    height: 24px;
+    opacity: 20%;
+    margin: 6px;
+
+    transition-duration: 0.2s;
+}
+  
+.imgAdd:hover {
+    opacity: 100%;
+    height: 36px;
+    margin: 0px;
+}
+
+.imgDel{
+    height: 12px;
+    opacity: 30%;
+    margin: 4px;
+
+    transition-duration: 0.2s;
+}
+  
+.imgDel:hover {
+    opacity: 100%;
+    height: 20px;
+    margin: 0px;
+}
+
+.imgAdd-User{
+    opacity: 20%;
+    height: 40px;
+    margin: 5px;
+    
+
+    transition-duration: 0.2s;
+}
+  
+.imgAdd-User:hover {
+    opacity: 100%;
+    height: 50px;
+    margin: 0;
+}
+
+#Object {
+
+    text-decoration: underline;
+    font-size: 20px;
+    color: red;
+
+}
+
+.footer h4{
+    color: #039DDE;
+    font-weight: bold;
+}
+
+@keyframes load-card{
+    0%{
+        opacity: 0%;
+        transform: translateY(-20%);
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes load-titulo{
+    0%{
+        opacity: 0%;
+        transform: translateX(-5%);
+    }
+    100%{
+        opacity: 100%;
+        transform: translateX(0%);
+    }
+}
+
