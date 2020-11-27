@@ -8,6 +8,21 @@ public class AlumnoView {
 	private String curso;
 	public ArrayList<Telefono> telefonos;
 	public ArrayList<Emilio> emilios;
+	
+	public AlumnoView(String dni, String nombre, String curso, ArrayList<Telefono> telefonos,
+			ArrayList<Emilio> emilios) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.curso = curso;
+		this.telefonos = telefonos;
+		this.emilios = emilios;
+	}
+	public AlumnoView() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public String getDni() {
 		return dni;
 	}
@@ -38,19 +53,7 @@ public class AlumnoView {
 	public void setEmilios(ArrayList<Emilio> emilios) {
 		this.emilios = emilios;
 	}
-	public AlumnoView(String dni, String nombre, String curso, ArrayList<Telefono> telefonos,
-			ArrayList<Emilio> emilios) {
-		super();
-		this.dni = dni;
-		this.nombre = nombre;
-		this.curso = curso;
-		this.telefonos = telefonos;
-		this.emilios = emilios;
-	}
-	public AlumnoView() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 	@Override
 	public String toString() {
 		return "AlumnoView [dni=" + dni + ", nombre=" + nombre + ", curso=" + curso + ", telefonos=" + telefonos
