@@ -58,6 +58,7 @@ public class Controller extends HttpServlet {
 
 		} else if (op.equals("addAlumno")) {
 			DaoAlumno DaoAlumno = new DaoAlumno();
+			
 			String nombreAlumno = request.getParameter("nombreAlumno").toString();
 			String dniAlumno = request.getParameter("dniAlumno").toString();
 			String cursoAlumno = request.getParameter("cursoAlumno").toString();
@@ -82,6 +83,7 @@ public class Controller extends HttpServlet {
 			}
 			dispatcher = request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response); // devolvemos respuesta
+			
 		} else if (op.equals("deleteEmail")) {
 			Emilio emilio = new Emilio(request.getParameter("dniEmail").toString(), request.getParameter("emailEmail").toString());
 			DaoEmilio DaoEmail = new DaoEmilio();

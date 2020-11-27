@@ -77,7 +77,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
             <div class="mb-0 pl-3 py-sm-auto ml-sm-auto open-DeleteObject" data-toggle="modal" data-target="#Warning" data-data="Año" data-type="Curso">
                 <img src="img/delete.svg" alt="DeleteGroup-Curso" class="imgAdd-User" data-toggle="tooltip" data-placement="bottom" title="Eliminar Curso-<%= curso.getGrupo() %>" >
             </div>
-            <div class="mb-0 py-sm-auto">
+            <div class="mb-0 py-sm-auto open-AddUser" data-toggle="modal" data-target="#AddUserModal" data-curso="<%= curso.getGrupo() %>" >
                 <img src="img/add.svg" alt="addUser" class="imgAdd-User" data-toggle="tooltip" data-placement="bottom" title="Añadir alumno" >
             </div>
         </div>
@@ -296,6 +296,57 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
 
 
     <!-- AddUser Modal  -->
+
+    <div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="AddUserLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddUserLabel"> Nuevo usuario </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <form action="Controller" method="POST">
+                    <div class="modal-body">
+                        <div class="row py-1">
+                            <div class="col-3">
+                                DNI:
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="dniAlumno" id="dniAlumno" placeholder="DNI" required="required" >
+                            </div>
+                        </div>
+                        <div class="row py-1">
+                            <div class="col-3">
+                                Nombre:
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="nombreAlumno" id="nombreAlumno" placeholder="Tu nombre" required="required" >
+                            </div>
+                        </div>
+                        <div class="row py-1">
+                            <div class="col-3">
+                                Curso:
+                            </div>
+                            <div class="col-9">
+                                <select class="form-control" id="cursoSelect">
+                                <% for(Curso curso : listaCurso ) {%>
+                                	<option class="option" id="<%= curso.getGrupo() %>" data-value="<%= curso.getGrupo() %>"> "<%= curso.getGrupo() %>" </option>
+                                <% } %>
+                                </select>
+                            </div>
+                            <input type="hidden" name="cursoAlumno" id="CursoValue" value="">
+                        </div>
+                        <input type="hidden" name="op" value="addAlumno">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" > Cerrar </button>
+                        <button type="submit" class="btn btn-primary"  > Enviar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- AddPhone Modal -->
 

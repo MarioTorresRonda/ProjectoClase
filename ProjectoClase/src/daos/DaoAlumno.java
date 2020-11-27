@@ -95,7 +95,7 @@ public class DaoAlumno {
 		Connection con = Conection.conecta();
 		try {
 			String ordenSQL;
-			ordenSQL = "insert into alumno values(?,?,?)";
+			ordenSQL = "insert into alumno values(?,?, (select curso from curso where curso = ?))";
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, alumno.getDni());
 			st.setString(2, alumno.getNombre());
