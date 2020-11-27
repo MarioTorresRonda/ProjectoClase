@@ -95,6 +95,17 @@ public class Controller extends HttpServlet {
 			}
 			dispatcher = request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response); // devolvemos respuesta
+		} else if (op.equals("editAlumno")) {
+			DaoAlumno DaoAlumno = new DaoAlumno();
+			Alumno alumno = new Alumno(request.getParameter("dniAlumno"), request.getParameter("nombreAlumno"), request.getParameter("cursoAlumno"));
+			
+			if (DaoAlumno.actualizaAlumno(alumno)) {
+				request.setAttribute("upatedListAlumnos", DaoAlumno.getAlumnos());
+			} else {
+				request.setAttribute("error", "Error al editar el alumno");
+			}
+			dispatcher = request.getRequestDispatcher("home.jsp");
+			dispatcher.forward(request, response); // devolvemos respuesta
 		}
 	}
 
