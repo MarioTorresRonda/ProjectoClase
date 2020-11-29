@@ -6,16 +6,16 @@ public class Curso {
 
 	private String grupo;
 	
-	ArrayList <Alumno> alumnos = new ArrayList();
+
 	
 	public Curso() {
 		super();
 	}
 
-	public Curso(String grupo, ArrayList<Alumno> alumnos) {
+	public Curso(String grupo) {
 		super();
 		this.grupo = grupo;
-		this.alumnos = alumnos;
+	
 	}
 
 	public String getGrupo() {
@@ -26,17 +26,11 @@ public class Curso {
 		this.grupo = grupo;
 	}
 
-	public ArrayList<Alumno> getAlumnos() {
-		return alumnos;
-	}
-
-	public void setAlumnos(ArrayList<Alumno> alumnos) {
-		this.alumnos = alumnos;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "Curso [grupo=" + grupo + ", alumnos=" + alumnos + "]";
+		return "Curso [grupo=" + grupo + "]";
 	}
 
 	

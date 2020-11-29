@@ -51,6 +51,10 @@ public class prueba {
 		DaoCurso daoCurso = new DaoCurso();
 		cursos = daoCurso.getCursos();
 		System.out.println(cursos);
+		Curso curso = new Curso();
+		curso.setGrupo("2005");
+		//System.out.println(daoCurso.insertCurso(curso));
+		System.out.println(daoCurso.borraCurso(curso.getGrupo()));
 		
 		
 		ArrayList<AlumnoView> alumnoViews = new ArrayList<AlumnoView>();
@@ -58,6 +62,8 @@ public class prueba {
 		alumnoViews = daoAlumnoView.getAlumnoViews("","");
 		System.out.println(alumnoViews);
 		System.out.println(alumnoViews.size());
+		
+		
 		
 		
 	}

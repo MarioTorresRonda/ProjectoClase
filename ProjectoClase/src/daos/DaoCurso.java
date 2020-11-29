@@ -1,6 +1,7 @@
 package daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,8 @@ import model.Alumno;
 import model.Curso;
 
 public class DaoCurso {
+	
+	
 	public ArrayList<Curso> getCursos() {
 		ResultSet rs;
 		ArrayList<Curso> lista = new ArrayList<Curso>();
@@ -35,5 +38,40 @@ public class DaoCurso {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+	
+	
+	public boolean insertCurso(Curso curso) {
+		Connection con = Conection.conecta();
+		try {
+			String ordenSQL;
+			ordenSQL = "insert into curso values(?)";
+			PreparedStatement st = con.prepareStatement(ordenSQL);
+			st.setString(1, curso.getGrupo());
+			st.executeUpdate();
+			st.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al insertar datos en la BDs: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean borraCurso(String curso) {
+		int borrados = -1;
+		Connection con = Conection.conecta();
+		String ordenSQL = "delete from curso where curso=?";
+		try {
+			PreparedStatement st = con.prepareStatement(ordenSQL);
+			st.setString(1, curso);
+			borrados = st.executeUpdate();
+			st.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al eliminar datos en la BDs: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 }
