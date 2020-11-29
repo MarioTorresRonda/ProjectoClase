@@ -49,7 +49,7 @@ public class prueba {
 		
 		ArrayList<Curso> cursos = new ArrayList<Curso>();
 		DaoCurso daoCurso = new DaoCurso();
-		cursos = daoCurso.getCursos();
+		cursos = daoCurso.getCursos("");
 		System.out.println(cursos);
 		Curso curso = new Curso();
 		curso.setGrupo("2005");
