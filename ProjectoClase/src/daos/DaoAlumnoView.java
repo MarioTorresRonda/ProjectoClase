@@ -42,7 +42,7 @@ public class DaoAlumnoView {
 				while (rs2.next()) {
 					Telefono telefono = new Telefono();
 					telefono.setDni(alumno.getDni());
-					telefono.setTlf(rs2.getLong("tlf"));
+					telefono.setTlf(rs2.getString("tlf"));
 					telefonos.add(telefono);
 					
 				}

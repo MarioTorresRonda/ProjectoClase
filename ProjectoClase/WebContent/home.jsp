@@ -4,8 +4,8 @@
 <%@page import="model.Curso"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
     <title>ProyectoClase</title>
@@ -14,9 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="my-css.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="my-css.css">
 </head>
 
 <%
@@ -40,10 +40,27 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                 <!-- Search form -->
                 <div class="row">
                     <div class="col-9  col-md-11 my-auto">
-                        <input class="form-control" id="listSearch" type="text" placeholder="Busca alumnos o cursos">
+						<form action="Controller" method="GET">
+                            <div class="input-group md-form form-sm form-2 pl-0">
+                                <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" name="alumno" id="alumno">
+                                <div class="input-group-append ">
+                                    <label for="curso"></label>
+                                    <select class="form-control custom-select input-group-text text-right" style="width: 100px;" name="curso" id="curso" onchange="this.form.submit()" >
+                                        <option value="" readonly > Curso </option>
+                                        <% for( Curso curso : listaCurso  ) { %>
+                                        <option value="<%= curso.getGrupo() %>"> <%= curso.getGrupo() %> </option>
+                                        <% } %>
+                                        <option value=""> Todos </option>
+                                    </select>   
+                                </div>
+                                <input hidden name="op" value="UsuarioBuscar">
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-3 col-md-1 my-auto text-right p-sm-0" data-toggle="tooltip" data-placement="bottom" title="Añadir curso" >
-                        <img src="img/add.svg" alt="addUser" class="imgAdd-User" >
+                    <div class="col-3 col-md-1 my-auto text-right p-sm-0" data-toggle="modal"
+                        data-target="#AddGroupModal">
+                        <img src="img/add.svg" alt="addCurso" class="imgAdd-User" data-toggle="tooltip"
+                            data-placement="bottom" title="Añadir curso">
                     </div>
                 </div>
             </div>
@@ -74,10 +91,10 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                 <h1> Curso <%= curso.getGrupo() %> </h1>
 
             </div>
-            <div class="mb-0 pl-3 py-sm-auto ml-sm-auto open-DeleteObject" data-toggle="modal" data-target="#Warning" data-data="Año" data-type="Curso">
+            <div class="mb-0 pl-3 py-sm-auto ml-sm-auto open-DeleteObject" data-toggle="modal" data-target="#Warning" data-data="<%= curso.getGrupo() %>" data-type="Curso">
                 <img src="img/delete.svg" alt="DeleteGroup-Curso" class="imgAdd-User" data-toggle="tooltip" data-placement="bottom" title="Eliminar Curso-<%= curso.getGrupo() %>" >
             </div>
-            <div class="mb-0 py-sm-auto open-AddUser" data-toggle="modal" data-target="#AddUserModal" data-curso="<%= curso.getGrupo() %>" >
+            <div class="mb-0 py-sm-auto open-AddUser" data-toggle="modal" data-target="#AddUserModal" data-metodo="add" data-curso="<%= curso.getGrupo() %>" >
                 <img src="img/add.svg" alt="addUser" class="imgAdd-User" data-toggle="tooltip" data-placement="bottom" title="Añadir alumno" >
             </div>
         </div>
@@ -108,10 +125,14 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                                 <p hidden> <%=alumView.getCurso()%> </p>
                             </div>
                             <div class="col-4 text-right">
-                                <a data-toggle="modal" data-target="#Warning" data-data="<%=alumView.getNombre()%>"
-                                    data-type="Alumno" class="open-DeleteObject">
-                                    <img class="imgDel" src="img/delete.svg" alt="DeletePhone-<%=alumView.getDni()%>" data-toggle="tooltip" data-placement="bottom" title="Eliminar Alumno <%=alumView.getNombre()%>">
-                                </a>
+								<div class="mb-0 py-sm-auto open-AddUser" data-metodo="edit" data-curso="<%=alumView.getCurso() %>" data-dni="<%=alumView.getDni() %>" data-nombre="<%=alumView.getNombre() %>" data-toggle="modal" data-target="#AddUserModal">
+                                    <img src="img/add.svg" alt="addUser" class="imgAdd" data-toggle="tooltip" data-placement="bottom"
+                                        title="Añadir alumno">
+                                </div>
+                                <div data-toggle="modal" data-target="#Warning" data-data="<%=alumView.getDni() %>" data-type="Alumno" class="mb-0 py-sm-auto open-DeleteObject">
+                                    <img class="imgAdd" src="img/delete.svg" alt="DeletePhone-03954928P"
+                                        data-toggle="tooltip" data-placement="bottom" title="Eliminar Alumno-Nombre">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -128,7 +149,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
 
                         <!-- Email Acordeon Head -->
 
-                        <div class="card">
+                        <div class="card" style="height: auto">
                             <div class="card-header" role="tab" id="HeadEmail-<%=alumView.getDni()%>">
                                 <h5 class="mb-0">
                                     <div class="row">
@@ -140,7 +161,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                                             </a>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <a data-toggle="modal" data-target="#AddEmail">
+                                            <a data-toggle="modal" data-target="#AddEmailModal" data-dniemail="<%= alumView.getDni() %>" data-nombre="<%= alumView.getNombre() %>" class="open-AddEmail">
                                                 <img class="imgAdd" src="img/add.svg" alt="AddEmail" data-toggle="tooltip" data-placement="bottom" title="Añadir Email">
                                             </a>
                                         </div>
@@ -182,7 +203,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
 
                         <!-- Phone Acordeon Head -->
 
-                        <div class="card">
+                        <div class="card" style="height: auto">
                             <div id="<%=alumView.getDni()%>-HeadPhone" class="card-header" role="tab">
                                 <h5 class="mb-0">
                                     <div class="row">
@@ -194,7 +215,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                                             </a>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <a data-toggle="modal" data-target="#AddPhone">
+                                            <a data-toggle="modal" data-target="#AddPhoneModal" data-dniphone="<%= alumView.getDni()  %>" data-nombre="<%= alumView.getNombre() %>"  class="open-AddPhone">
                                                 <img class="imgAdd" src="img/add.svg" alt="AddPhone" data-toggle="tooltip" data-placement="bottom" title="Añadir Telefono">
                                             </a>
                                         </div>
@@ -262,7 +283,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
 
     <!-- Modales -->
 
-    <!-- Warning before deleting modal-->
+    <!-- Warning before deleting modal -->
 
     <div class="modal fade" id="Warning" tabindex="-1" role="dialog" aria-labelledby="WarningLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -273,6 +294,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form action="Controller" method="GET">
                 <div class="modal-body">
                     <p>
                         ¿Estas seguro de que quieres eliminar
@@ -282,14 +304,20 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                         </a>
 
                         ?
+                        
+                        <input type="hidden" name="Key" id="Key" value="">
+                        <input type="hidden" name="op" id="op" value="">
+                        
                     </p>
+                    
                 </div>
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-danger" data-dismiss="modal"> No </button>
-                    <button type="button" class="btn btn-success"> Si </button>
+                    <button type="submit" class="btn btn-success"> Si </button>
 
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -301,19 +329,19 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="AddUserLabel"> Nuevo usuario </h5>
+                    <h5 class="modal-title" id="AddUserLabel"> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                <form action="Controller" method="POST">
+                <form action="Controller" method="GET">
                     <div class="modal-body">
                         <div class="row py-1">
                             <div class="col-3">
                                 DNI:
                             </div>
                             <div class="col-9">
-                                <input class="form-control" type="text" name="dniAlumno" id="dniAlumno" placeholder="DNI" required="required" >
+                                <input class="form-control" type="text" name="dniAlumno" id="DNI" placeholder="DNI" required="required" >
                             </div>
                         </div>
                         <div class="row py-1">
@@ -321,7 +349,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                                 Nombre:
                             </div>
                             <div class="col-9">
-                                <input class="form-control" type="text" name="nombreAlumno" id="nombreAlumno" placeholder="Tu nombre" required="required" >
+                                <input class="form-control" type="text" name="nombreAlumno" id="Nombre" placeholder="Tu nombre" required="required" >
                             </div>
                         </div>
                         <div class="row py-1">
@@ -337,7 +365,7 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
                             </div>
                             <input type="hidden" name="cursoAlumno" id="CursoValue" value="">
                         </div>
-                        <input type="hidden" name="op" value="addAlumno">
+                        <input type="hidden" name="op" id="opAddAlumno" value="addAlumno">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" > Cerrar </button>
@@ -350,9 +378,113 @@ ArrayList<Curso> listaCurso  = (ArrayList<Curso>) session.getAttribute("listaCur
 
     <!-- AddPhone Modal -->
 
+    <div class="modal fade" id="AddPhoneModal" tabindex="-1" role="dialog" aria-labelledby="AddPhonelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddPhoneTitle"> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="Controller" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-3">
+                                Telefono:
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="tlf" id="tlf">
+                            </div>
+                        </div>
+
+                        <input hidden name="dni" id="dniPhone">
+                        <input hidden name="op" id="op" value="addTelefono">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="sumbit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- AddEmail Modal -->
 
+    <div class="modal fade" id="AddEmailModal" tabindex="-1" role="dialog" aria-labelledby="AddEmailLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEmailTitle"> Añadir Email a </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="Controller" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-3">
+                                Email:
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="Email" id="Email">
+                            </div>
+                        </div>
+
+                        <input hidden name="dni" id="dniEmail">
+                        <input hidden name="op" id="op" value="addEmail">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="sumbit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- AddGroup Modal -->
+
+
+    <div class="modal fade" id="AddGroupModal" tabindex="-1" role="dialog" aria-labelledby="AddGroupLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Añadir curso </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="Controller" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-3">
+                                Curso:
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" name="grupo" id="grupo">
+                            </div>
+                        </div>
+
+                        <input hidden id="op" name="op" value="addCurso" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

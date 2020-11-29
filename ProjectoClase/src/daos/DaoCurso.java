@@ -13,8 +13,7 @@ import model.Curso;
 
 public class DaoCurso {
 	
-	
-	public ArrayList<Curso> getCursos() {
+	public ArrayList<Curso> getCursos( String grupo) {
 		ResultSet rs;
 		ArrayList<Curso> lista = new ArrayList<Curso>();
 
@@ -22,7 +21,7 @@ public class DaoCurso {
 		Statement st;
 		try {
 			st = con.createStatement();
-			String ordenSql = "select curso from curso";
+			String ordenSql = "select curso from curso where curso like '"+ grupo +"%'";
 			rs = st.executeQuery(ordenSql);
 			while (rs.next()) {
 				Curso curso = new Curso();

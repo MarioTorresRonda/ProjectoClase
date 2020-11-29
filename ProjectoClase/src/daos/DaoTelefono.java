@@ -28,7 +28,7 @@ public class DaoTelefono {
 			while (rs.next()) {
 				Telefono telefono = new Telefono();
 				telefono.setDni(dni);
-				telefono.setTlf(rs.getLong("tlf"));
+				telefono.setTlf(rs.getString("tlf"));
 				lista.add(telefono);
 			}
 			rs.close();
@@ -48,7 +48,7 @@ public class DaoTelefono {
 			ordenSQL = "insert into telefono values(?,?)";
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, telefono.getDni());
-			st.setLong(2, telefono.getTlf());
+			st.setString(2, telefono.getTlf());
 			st.executeUpdate();
 			st.close();
 			con.close();
@@ -59,13 +59,13 @@ public class DaoTelefono {
 		return true;
 	}
 	
-	public boolean borraTelefono(String dni) {
+	public boolean borraTelefono(String tlf) {
 		int borrados = -1;
 		Connection con = new Conection().conecta();
-		String ordenSQL = "delete from telefono where dni=?";
+		String ordenSQL = "delete from telefono where tlf=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
-			st.setString(1, dni);
+			st.setString(1, tlf);
 			borrados = st.executeUpdate();
 			st.close();
 			con.close();

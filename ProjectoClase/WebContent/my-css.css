@@ -2,16 +2,15 @@ body{
     margin: 0;
 }
 
-.cartabox{
-    margin-left: -15px;
-    margin-right: -15px;
-}
-
 .carta .card {
     height: 100%; 
     
     animation: load-card 0.3s ease-in;
+}
 
+.cartabox{
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .acordeon .card{
@@ -119,4 +118,3 @@ body{
         transform: translateX(0%);
     }
 }
-

@@ -3,7 +3,7 @@ package model;
 public class Telefono {
 	
 	private String dni;
-	private Long tlf;
+	private String tlf;
 	
 
 
@@ -11,10 +11,10 @@ public class Telefono {
 
 
 
-	public Telefono(String dni, Long tlf) {
+	public Telefono(String dni, String tlf2) {
 		super();
 		this.dni = dni;
-		this.tlf = tlf;
+		this.tlf = tlf2;
 	}
 
 
@@ -54,7 +54,7 @@ public class Telefono {
 
 
 
-	public Long getTlf() {
+	public String getTlf() {
 		return tlf;
 	}
 
@@ -64,7 +64,7 @@ public class Telefono {
 
 
 
-	public void setTlf(Long tlf) {
+	public void setTlf(String tlf) {
 		this.tlf = tlf;
 	}
 
