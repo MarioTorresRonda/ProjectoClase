@@ -111,13 +111,12 @@ public class DaoAlumno {
 	}
 
 	public boolean borraAlumno(String dni) {
-		int borrados = -1;
 		Connection con = Conection.conecta();
 		String ordenSQL = "delete from alumno where dni=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, dni);
-			borrados = st.executeUpdate();
+			st.executeUpdate();
 			st.close();
 			con.close();
 		} catch (SQLException e) {
@@ -128,15 +127,15 @@ public class DaoAlumno {
 	}
 
 	public boolean actualizaAlumno(Alumno alumno) {
-		int actualizados = -1;
-		Connection con = new Conection().conecta();
+		new Conection();
+		Connection con = Conection.conecta();
 		String ordenSQL = "update alumno set nombre=?,curso=? where dni=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, alumno.getNombre());
 			st.setString(2, alumno.getCurso());
 			st.setString(3, alumno.getDni());
-			actualizados = st.executeUpdate();
+			st.executeUpdate();
 			st.close();
 			con.close();
 		} catch (SQLException e) {

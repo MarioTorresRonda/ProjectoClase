@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conection.Conection;
-import model.Alumno;
 import model.AlumnoView;
 import model.Emilio;
 import model.Telefono;
@@ -54,9 +53,9 @@ public class DaoAlumnoView {
 				PreparedStatement ps2;
 				ArrayList<Emilio> emilios = new ArrayList<Emilio>();
 				String ordenSql3 = "select email from emilio where dni =?";
-				ps = con.prepareStatement(ordenSql3);
-				ps.setString(1, alumno.getDni());
-				ResultSet rs3 = ps.executeQuery();
+				ps2 = con.prepareStatement(ordenSql3);
+				ps2.setString(1, alumno.getDni());
+				ResultSet rs3 = ps2.executeQuery();
 				while (rs3.next()) {
 					Emilio emilio = new Emilio();
 					emilio.setDni(alumno.getDni());

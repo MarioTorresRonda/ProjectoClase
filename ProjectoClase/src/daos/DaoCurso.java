@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conection.Conection;
-import model.Alumno;
 import model.Curso;
 
 public class DaoCurso {
@@ -58,13 +57,12 @@ public class DaoCurso {
 	}
 	
 	public boolean borraCurso(String curso) {
-		int borrados = -1;
 		Connection con = Conection.conecta();
 		String ordenSQL = "delete from curso where curso=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, curso);
-			borrados = st.executeUpdate();
+			st.executeUpdate();
 			st.close();
 			con.close();
 		} catch (SQLException e) {

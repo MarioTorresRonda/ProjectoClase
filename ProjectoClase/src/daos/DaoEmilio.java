@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conection.Conection;
-import model.Telefono;
 import model.Emilio;
 
 public class DaoEmilio {
@@ -39,7 +38,8 @@ public class DaoEmilio {
 	}
 
 	public boolean insertEmilio(Emilio emilio) {
-		Connection con = new Conection().conecta();
+		new Conection();
+		Connection con = Conection.conecta();
 		try {
 			String ordenSQL;
 			ordenSQL = "insert into emilio values(?,?)";
@@ -57,13 +57,13 @@ public class DaoEmilio {
 	}
 
 	public boolean borraEmilio( String email ) {
-		int borrados = -1;
-		Connection con = new Conection().conecta();
+		new Conection();
+		Connection con = Conection.conecta();
 		String ordenSQL = "delete from emilio where email=?";
 		try {
 			PreparedStatement st = con.prepareStatement(ordenSQL);
 			st.setString(1, email);
-			borrados = st.executeUpdate();
+			st.executeUpdate();
 			st.close();
 			con.close();
 		} catch (SQLException e) {
